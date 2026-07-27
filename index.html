@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutArena Bolão - KWC Clubs 2026</title>
+    <!-- Importação de tipografia moderna e atrativa -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #09090b;
+            --card-bg: #121217;
+            --text: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --border: #27272a;
+            
+            --primary: #dc2626;        /* Vermelho vibrante */
+            --secondary: #9333ea;      /* Roxo */
+            --accent: #eab308;         /* Amarelo */
+            
+            --danger-bg: #1f1315;
+            --danger-border: #7f1d1d;
+            --danger-text: #fca5a5;
+            
+            --success-bg: #161525;
+            --success-border: #581c87;
+            --success-text: #d8b4fe;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #000000, #18181b, #7f1d1d);
+            color: #ffffff;
+            padding: 35px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.15);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+        }
+
+        header p {
+            margin: 8px 0 0 0;
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 24px auto;
+            padding: 0 16px 48px 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+        }
+
+        .user-welcome-box {
+            background: var(--success-bg);
+            border-color: var(--success-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        select, input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="datetime-local"] {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            font-size: 15px;
+            background: #18181b;
+            color: var(--text);
+            margin-bottom: 14px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+        }
+
+        input:disabled, select:disabled {
+            background-color: #09090b;
+            color: #52525b;
+            cursor: not-allowed;
+            border-color: #18181b;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            background: #121217;
+            padding: 6px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            color: var(--text-muted);
+            flex: 1;
+            text-align: center;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .nav-btn:hover {
+            color: var(--text);
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(220, 38, 38, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .match-box {
+            background: #18181b;
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        @media(min-width: 500px) {
+            .match-box {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .match-info {
+            flex: 2;
+        }
+
+        .teams-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(147, 51, 234, 0.15);
+            color: #e879f9;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            padding: 4px 10px;
+            font-size: 12px;
+            border-radius: 6px;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        .match-inputs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .match-inputs input {
+            width: 55px;
+            height: 45px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 0;
+            margin-bottom: 0;
+            background: #09090b;
+            color: var(--accent);
+            border-color: var(--border);
+        }
+
+        .action-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            transition: background-color 0.2s, transform 0.1s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .action-btn:hover {
+            background-color: #b91c1c;
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+
+        table.ranking-table, table.regra-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        table.ranking-table th, table.ranking-table td, table.regra-table th, table.regra-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        table.ranking-table th, table.regra-table th {
+            background-color: #18181b;
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        table.ranking-table tr:nth-child(even), table.regra-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .bolao-info-box {
+            background: var(--danger-bg);
+            border: 1px solid var(--danger-border);
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: var(--danger-text);
+            font-weight: 500;
+        }
+
+        .inline-form-box {
+            background: #18181b;
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .inline-form-box.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>FutArena Bolão</h1>
+        <p>Mundial de Clubes da Kings League</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Identificação do Participante -->
+        <div class="card user-welcome-box" id="box-identificacao">
+            <div>
+                <span id="label-usuario-ativo" style="font-size: 15px; color: var(--success-text); font-weight: 600;">Olá! Cadastre seu perfil para começar.</span>
+                <p style="font-size: 13px; margin: 4px 0 0 0; color: var(--text-muted);">Cadastro seguro integrado ao site.</p>
+            </div>
+            <div>
+                <button onclick="alternarFormularioUsuario()" style="background: var(--secondary); color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;">Cadastrar / Alterar Perfil</button>
+            </div>
+        </div>
+
+        <!-- Formulário Embutido de Cadastro de Perfil -->
+        <div class="inline-form-box" id="form-perfil-box">
+            <h3 style="margin-top: 0; color: var(--success-text); font-size: 16px;">Configurar Perfil do Participante</h3>
+            <label>Seu Nome ou Apelido:</label>
+            <input type="text" id="input-usuario-nome" placeholder="Ex: João da Família">
+            
+            <label>Seu E-mail:</label>
+            <input type="email" id="input-usuario-email" placeholder="Ex: joao@email.com">
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="action-btn" style="margin-top: 0; background: var(--secondary);" onclick="salvarPerfilUsuario()">Salvar Perfil</button>
+                <button class="action-btn" style="margin-top: 0; background: #27272a;" onclick="alternarFormularioUsuario()">Cancelar</button>
+            </div>
+        </div>
+
+        <!-- Seção de Gestão / Entrada em Bolão -->
+        <div class="card" id="card-gerenciamento-bolao" style="border: 1px solid var(--secondary);">
+            <h3 style="margin-top: 0; color: #e879f9; font-size: 18px; font-weight: 700;">Gestão do Bolão</h3>
+            <div id="status-bolao-atual" class="bolao-info-box">
+                Nenhum bolão selecionado no momento. Entre com um código ou crie um novo!
+            </div>
+            
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <button class="action-btn" style="flex: 1; margin-top: 0; background: var(--secondary);" onclick="mostrarFormularioBolao('entrar')">Entrar em um Bolão (com Código)</button>
+                <button class="action-btn" style="flex: 1; margin-top: 0; background: var(--primary);" onclick="mostrarFormularioBolao('criar')">Criar Novo Bolão (KWC)</button>
+            </div>
+        </div>
+
+        <!-- Formulário Embutido de Bolão (Criar / Entrar) -->
+        <div class="inline-form-box" id="form-bolao-box">
+            <h3 id="titulo-form-bolao" style="margin-top: 0; color: #e879f9; font-size: 16px;">Gerenciar Bolão</h3>
+            <div id="label-campo-bolao" style="font-weight: 600; font-size: 14px; margin-bottom: 8px;">Nome do Bolão:</div>
+            <input type="text" id="input-bolao-dado" placeholder="Digite aqui...">
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="action-btn" id="btn-executar-bolao" style="margin-top: 0; background: var(--primary);" onclick="executarAcaoBolao()">Confirmar</button>
+                <button class="action-btn" style="margin-top: 0; background: #27272a;" onclick="esconderFormularioBolao()">Cancelar</button>
+            </div>
+        </div>
+
+        <!-- Abas de Navegação -->
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="trocarAba(event, 'palpites')">Jogos</button>
+            <button class="nav-btn" onclick="trocarAba(event, 'especiais')">Especiais</button>
+            <button class="nav-btn" onclick="trocarAba(event, 'classificacao')">Placar ao Vivo</button>
+            <button class="nav-btn" onclick="trocarAba(event, 'regras')">Regulamento</button>
+            <button class="nav-btn" onclick="abrirPainelSenhaAdmin(event)" style="background: #18181b; color: var(--accent); border: 1px solid var(--accent);">Admin 🔒</button>
+        </div>
+
+        <!-- Formulário Embutido de Senha do Admin -->
+        <div class="inline-form-box" id="form-admin-senha-box" style="border-color: var(--accent);">
+            <h3 style="margin-top: 0; color: var(--accent); font-size: 16px;">Área Restrita do Administrador</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 0;">Digite a senha oficial para desbloquear o painel de gestão de partidas e resultados.</p>
+            <label>Senha de Acesso:</label>
+            <input type="password" id="input-admin-senha" placeholder="Digite a senha...">
+            <div style="display: flex; gap: 10px;">
+                <button class="action-btn" style="margin-top: 0; background: var(--accent); color: #000;" onclick="validarSenhaAdmin()">Desbloquear Painel</button>
+                <button class="action-btn" style="margin-top: 0; background: #27272a;" onclick="fecharPainelSenhaAdmin()">Cancelar</button>
+            </div>
+        </div>
+
+        <!-- ABA 1: PALPITES DOS JOGOS -->
+        <div id="tab-palpites" class="tab-content active">
+            <div class="card">
+                <h2>Palpites dos Jogos Oficiais</h2>
+                <p style="font-size: 14px; color: var(--text-muted); margin-top: 0;">Faça seus palpites antes do início de cada partida.</p>
+                
+                <div id="lista-jogos-container">
+                    <p style="color: var(--text-muted); text-align: center; padding: 20px;">Entre em um bolão para visualizar os jogos disponíveis.</p>
+                </div>
+
+                <button class="action-btn" id="btn-salvar-jogos" onclick="salvarPalpitesJogos()">Salvar Meus Palpites</button>
+            </div>
+        </div>
+
+        <!-- ABA 2: PALPITES ESPECIAIS -->
+        <div id="tab-especiais" class="tab-content">
+            <div class="card">
+                <h2>Palpites Especiais de Longo Prazo</h2>
+                <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
+
+                <label>1. Os 4 Primeiros Colocados (Palpite Inicial)</label>
+                <input type="text" id="esp_ini_1" placeholder="1º Lugar / Campeão">
+                <input type="text" id="esp_ini_2" placeholder="2º Lugar">
+                <input type="text" id="esp_ini_3" placeholder="3º Lugar">
+                <input type="text" id="esp_ini_4" placeholder="4º Lugar">
+
+                <button class="action-btn" id="btn-salvar-especiais" onclick="salvarPalpitesEspeciais()">Salvar Especiais</button>
+            </div>
+        </div>
+
+        <!-- ABA 3: CLASSIFICAÇÃO -->
+        <div id="tab-classificacao" class="tab-content">
+            <div class="card">
+                <h2>Placar ao Vivo & Classificação</h2>
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Participante</th>
+                            <th style="text-align: right;">Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-ranking-body">
+                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted);">Nenhum bolão ativo selecionado.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ABA 4: REGULAMENTO KWCC -->
+        <div id="tab-regras" class="tab-content">
+            <div class="card">
+                <h2>Regulamento Oficial - Kings World Cup Clubs (KWCC)</h2>
+                
+                <h3 style="color: var(--accent); font-size: 15px; margin-top: 15px;">1. Formato do Torneio</h3>
+                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">
+                    O mundial de clubes da Kings League reúne os melhores times do mundo em um formato eletrizante dividido em Rodada 1, Chave de Ganhadores, Chave de Perdedores, Last Chance, Quartas de Final, Semifinais e a Grande Final.
+                </p>
+
+                <h3 style="color: var(--accent); font-size: 15px; margin-top: 20px;">2. Prazos e Fechamento de Palpites</h3>
+                <ul style="line-height: 1.6; font-size: 14px; padding-left: 20px; color: var(--text-muted);">
+                    <li><strong>Antecedência:</strong> Os palpites para cada partida fecham automaticamente <strong>30 minutos antes</strong> do horário oficial de início.</li>
+                    <li><strong>Responsabilidade:</strong> É dever do participante salvar seus palpites com antecedência para garantir a pontuação.</li>
+                </ul>
+
+                <h3 style="color: var(--accent); font-size: 15px; margin-top: 20px;">3. Critérios de Pontuação (Bolão)</h3>
+                <table class="regra-table">
+                    <thead>
+                        <tr>
+                            <th>Situação do Palpite</th>
+                            <th style="text-align: right;">Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Acertou o resultado cheio (gols dos dois times)</td><td style="text-align: right;"><strong style="color: var(--accent);">30 pts</strong></td></tr>
+                        <tr><td>Acertou o vencedor e os gols de um dos times</td><td style="text-align: right;"><strong style="color: var(--accent);">18 pts</strong></td></tr>
+                        <tr><td>Acertou o vencedor e a diferença de gols</td><td style="text-align: right;"><strong style="color: var(--accent);">18 pts</strong></td></tr>
+                        <tr><td>Acertou somente o vencedor da partida</td><td style="text-align: right;"><strong style="color: var(--accent);">12 pts</strong></td></tr>
+                        <tr><td>Errou o vencedor mas acertou os gols de um dos times</td><td style="text-align: right;"><strong style="color: var(--accent);">6 pts</strong></td></tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: var(--accent); font-size: 15px; margin-top: 20px;">4. Critérios de Desempate no Ranking</h3>
+                <ol style="line-height: 1.6; font-size: 14px; padding-left: 20px; color: var(--text-muted);">
+                    <li>Maior número de acertos de resultados cheios (30 pontos).</li>
+                    <li>Maior número de acertos de vencedores.</li>
+                    <li>Ordem cronológica de cadastro no bolão.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ABA 5: PAINEL ADMINISTRADOR GLOBAL -->
+        <div id="tab-admin" class="tab-content">
+            <div class="card" style="border: 2px solid var(--primary);">
+                <h2 style="color: var(--primary); margin-top: 0;">Painel do Administrador Global 🔒</h2>
+                <p style="font-size: 14px; color: var(--text-muted);">Adicione, edite ou remova jogos e insira os placares oficiais manualmente.</p>
+                
+                <button class="action-btn" style="background: var(--secondary); margin-bottom: 20px;" onclick="abrirFormularioAdicionarJogo()">+ Adicionar Novo Jogo ao Torneio</button>
+
+                <!-- Formulário Embutido para Adicionar Jogo -->
+                <div class="inline-form-box" id="form-novo-jogo-box">
+                    <h3 style="margin-top:0; color:var(--accent); font-size:15px;">Cadastrar Novo Confronto</h3>
+                    <label>Fase / Rodada:</label>
+                    <input type="text" id="novo_jogo_fase" placeholder="Ex: 2. Rodada 2 - Ganhadores">
+                    <label>Time A (Mandante):</label>
+                    <input type="text" id="novo_jogo_timea" placeholder="Ex: Porcinos FC">
+                    <label>Time B (Visitante):</label>
+                    <input type="text" id="novo_jogo_timeb" placeholder="Ex: Furia FC">
+                    <label>Data e Hora:</label>
+                    <input type="datetime-local" id="novo_jogo_data">
+                    <div style="display: flex; gap: 10px;">
+                        <button class="action-btn" style="margin-top:0; background:var(--accent); color:#000;" onclick="salvarNovoJogoAdmin()">Adicionar Jogo</button>
+                        <button class="action-btn" style="margin-top:0; background:#27272a;" onclick="fecharFormularioAdicionarJogo()">Cancelar</button>
+                    </div>
+                </div>
+
+                <div id="lista-admin-container">
+                    <!-- Preenchido via script -->
+                </div>
+
+                <button class="action-btn" style="background-color: var(--primary);" onclick="salvarDadosAdmin()">Salvar Todas as Alterações e Resultados</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script Completo Atualizado -->
+    <script>
+        const SENHA_ADMIN = "admin123";
+
+        const jogosIniciaisPadrao = [
+            { id: 201, timeA: "Alpak FC", timeB: "No Rules FC", fase: "1. Rodada 1 (26/07)", dataHora: "2026-07-26T14:00" },
+            { id: 202, timeA: "Los Troncos FC", timeB: "DR7", fase: "1. Rodada 1 (26/07)", dataHora: "2026-07-26T15:00" },
+            { id: 203, timeA: "Ultimate Móstoles", timeB: "Aniquiladores FC", fase: "1. Rodada 1 (26/07)", dataHora: "2026-07-26T16:00" },
+            { id: 204, timeA: "Stallions", timeB: "DesinpaiN", fase: "1. Rodada 1 (26/07)", dataHora: "2026-07-26T17:00" },
+            { id: 205, timeA: "La Capital CF", timeB: "Underdogs FC", fase: "1. Rodada 1 (27/07)", dataHora: "2026-07-27T14:00" },
+            { id: 206, timeA: "Atlético Parceros FC", timeB: "FWZ", fase: "1. Rodada 1 (27/07)", dataHora: "2026-07-27T15:00" },
+            { id: 207, timeA: "Karasu", timeB: "G3X FC", fase: "1. Rodada 1 (27/07)", dataHora: "2026-07-27T16:00" },
+            { id: 208, timeA: "Porcinos FC", timeB: "Furia FC", fase: "1. Rodada 1 (27/07)", dataHora: "2026-07-27T17:00" }
+        ];
+
+        let usuarioNome = localStorage.getItem('bolao_nome_participante') || null;
+        let usuarioEmail = localStorage.getItem('bolao_email_participante') || null;
+        let bolaoAtivoCodigo = localStorage.getItem('bolao_ativo_codigo') || null;
+        let modoBolaoAcao = null;
+
+        window.onload = function() {
+            verificarEstadoUsuario();
+            carregarPainelAdminGlobal();
+            carregarBolaoAtivo();
+        };
+
+        function obterListaJogosGlobal() {
+            let salvos = localStorage.getItem('kwc_jogos_personalizados');
+            if (salvos) {
+                return JSON.parse(salvos);
+            }
+            localStorage.setItem('kwc_jogos_personalizados', JSON.stringify(jogosIniciaisPadrao));
+            return jogosIniciaisPadrao;
+        }
+
+        function verificarEstadoUsuario() {
+            const labelUser = document.getElementById('label-usuario-ativo');
+            if(usuarioNome && usuarioEmail) {
+                labelUser.innerHTML = `Participante: <strong style="color: var(--accent);">${usuarioNome}</strong> <span style="font-size: 13px; color: var(--text-muted);">(${usuarioEmail})</span>`;
+            } else {
+                labelUser.innerHTML = `Olá! Você ainda não cadastrou seu perfil.`;
+            }
+        }
+
+        function alternarFormularioUsuario() {
+            const box = document.getElementById('form-perfil-box');
+            box.classList.toggle('active');
+            if(box.classList.contains('active')) {
+                document.getElementById('input-usuario-nome').value = usuarioNome || '';
+                document.getElementById('input-usuario-email').value = usuarioEmail || '';
+            }
+        }
+
+        function salvarPerfilUsuario() {
+            let nomeLimpo = document.getElementById('input-usuario-nome').value.trim();
+            let emailLimpo = document.getElementById('input-usuario-email').value.trim().toLowerCase();
+
+            if(nomeLimpo !== "" && emailLimpo.includes("@")) {
+                usuarioNome = nomeLimpo;
+                usuarioEmail = emailLimpo;
+                localStorage.setItem('bolao_nome_participante', usuarioNome);
+                localStorage.setItem('bolao_email_participante', usuarioEmail);
+                verificarEstadoUsuario();
+                alternarFormularioUsuario();
+                alert(`Perfil salvo com sucesso para ${usuarioNome}!`);
+                carregarBolaoAtivo();
+            } else {
+                alert("Por favor, preencha um nome válido e um e-mail correto.");
+            }
+        }
+
+        function mostrarFormularioBolao(acao) {
+            if(!usuarioEmail) {
+                alert("Cadastre seu perfil primeiro!");
+                alternarFormularioUsuario();
+                return;
+            }
+            modoBolaoAcao = acao;
+            const box = document.getElementById('form-bolao-box');
+            box.classList.add('active');
+            const titulo = document.getElementById('titulo-form-bolao');
+            const label = document.getElementById('label-campo-bolao');
+            const input = document.getElementById('input-bolao-dado');
+            const btn = document.getElementById('btn-executar-bolao');
+
+            input.value = "";
+            if(acao === 'criar') {
+                titulo.innerText = "Criar Novo Bolão";
+                label.innerText = "Nome do Bolão (Ex: FutArena Família):";
+                input.placeholder = "Ex: Bolão da firma ou família";
+                btn.innerText = "Criar Bolão";
+            } else {
+                titulo.innerText = "Entrar em Bolão";
+                label.innerText = "Código de Acesso do Bolão:";
+                input.placeholder = "Ex: A3F9K";
+                btn.innerText = "Entrar";
+            }
+        }
+
+        function esconderFormularioBolao() {
+            document.getElementById('form-bolao-box').classList.remove('active');
+        }
+
+        function executarAcaoBolao() {
+            let valor = document.getElementById('input-bolao-dado').value.trim();
+            if(!valor) {
+                alert("O campo não pode ficar vazio.");
+                return;
+            }
+
+            if(modoBolaoAcao === 'criar') {
+                let codigoUnico = Math.random().toString(36).substring(2, 7).toUpperCase();
+                let dadosBolao = {
+                    codigo: codigoUnico,
+                    nome: valor,
+                    criador: usuarioEmail,
+                    participantes: {},
+                    palpites: {},
+                    resultadosReais: {}
+                };
+                dadosBolao.participantes[usuarioEmail] = { nome: usuarioNome, email: usuarioEmail };
+
+                localStorage.setItem('bolao_meta_' + codigoUnico, JSON.stringify(dadosBolao));
+                localStorage.setItem('bolao_ativo_codigo', codigoUnico);
+                bolaoAtivoCodigo = codigoUnico;
+
+                esconderFormularioBolao();
+                alert(`Bolão criado com sucesso!\n\nCódigo de acesso: ${codigoUnico}`);
+                carregarBolaoAtivo();
+            } else {
+                let codigoLimpo = valor.toUpperCase();
+                let bolaoSalvoStr = localStorage.getItem('bolao_meta_' + codigoLimpo);
+
+                if(!bolaoSalvoStr) {
+                    alert("Bolão não encontrado com esse código.");
+                    return;
+                }
+
+                let dadosBolao = JSON.parse(bolaoSalvoStr);
+                dadosBolao.participantes[usuarioEmail] = { nome: usuarioNome, email: usuarioEmail };
+                localStorage.setItem('bolao_meta_' + codigoLimpo, JSON.stringify(dadosBolao));
+                
+                localStorage.setItem('bolao_ativo_codigo', codigoLimpo);
+                bolaoAtivoCodigo = codigoLimpo;
+
+                esconderFormularioBolao();
+                alert(`Entrada no bolão "${dadosBolao.nome}" realizada com sucesso!`);
+                carregarBolaoAtivo();
+            }
+        }
+
+        function abrirPainelSenhaAdmin(event) {
+            const box = document.getElementById('form-admin-senha-box');
+            box.classList.toggle('active');
+            document.getElementById('input-admin-senha').value = "";
+        }
+
+        function fecharPainelSenhaAdmin() {
+            document.getElementById('form-admin-senha-box').classList.remove('active');
+        }
+
+        function validarSenhaAdmin() {
+            let senha = document.getElementById('input-admin-senha').value;
+            if(senha === SENHA_ADMIN) {
+                fecharPainelSenhaAdmin();
+                carregarPainelAdminGlobal();
+                trocarAba(null, 'admin');
+                alert("Painel Admin Global desbloqueado com sucesso!");
+            } else {
+                alert("Senha incorreta! Acesso negado.");
+            }
+        }
+
+        function abrirFormularioAdicionarJogo() {
+            document.getElementById('form-novo-jogo-box').classList.add('active');
+        }
+
+        function fecharFormularioAdicionarJogo() {
+            document.getElementById('form-novo-jogo-box').classList.remove('active');
+        }
+
+        function salvarNovoJogoAdmin() {
+            let fase = document.getElementById('novo_jogo_fase').value.trim();
+            let timeA = document.getElementById('novo_jogo_timea').value.trim();
+            let timeB = document.getElementById('novo_jogo_timeb').value.trim();
+            let dataHora = document.getElementById('novo_jogo_data').value;
+
+            if(!fase || !timeA || !timeB || !dataHora) {
+                alert("Preencha todos os campos do novo jogo.");
+                return;
+            }
+
+            let lista = obterListaJogosGlobal();
+            let novoId = lista.length > 0 ? Math.max(...lista.map(j => j.id)) + 1 : 300;
+
+            lista.push({
+                id: novoId,
+                timeA: timeA,
+                timeB: timeB,
+                fase: fase,
+                dataHora: dataHora
+            });
+
+            localStorage.setItem('kwc_jogos_personalizados', JSON.stringify(lista));
+            fecharFormularioAdicionarJogo();
+            carregarPainelAdminGlobal();
+            carregarBolaoAtivo();
+            alert("Jogo adicionado com sucesso!");
+        }
+
+        function removerJogoAdmin(id) {
+            if(!confirm("Tem certeza que deseja excluir este jogo?")) return;
+            let lista = obterListaJogosGlobal();
+            lista = lista.filter(j => j.id !== id);
+            localStorage.setItem('kwc_jogos_personalizados', JSON.stringify(lista));
+            carregarPainelAdminGlobal();
+            carregarBolaoAtivo();
+        }
+
+        function carregarPainelAdminGlobal() {
+            const containerAdmin = document.getElementById('lista-admin-container');
+            if(!containerAdmin) return;
+
+            let listaJogos = obterListaJogosGlobal();
+            let resultadosGlobais = JSON.parse(localStorage.getItem('kwc_resultados_globais') || '{}');
+
+            containerAdmin.innerHTML = '';
+            listaJogos.forEach(jogo => {
+                let resSalvo = resultadosGlobais[jogo.id] ? resultadosGlobais[jogo.id] : { a: '', b: '' };
+                containerAdmin.innerHTML += `
+                    <div class="match-box" style="flex-direction: column; align-items: stretch;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span class="badge">${jogo.fase} (ID: ${jogo.id})</span>
+                            <button onclick="removerJogoAdmin(${jogo.id})" style="background: var(--primary); color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 12px;">Excluir Jogo</button>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                            <input type="text" id="admin_time_a_${jogo.id}" value="${jogo.timeA}" style="margin-bottom:0;" placeholder="Time A">
+                            <span style="align-self: center; font-weight: bold;">x</span>
+                            <input type="text" id="admin_time_b_${jogo.id}" value="${jogo.timeB}" style="margin-bottom:0;" placeholder="Time B">
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 12px; color: var(--text-muted);">Início: ${jogo.dataHora}</span>
+                            <div class="match-inputs" style="margin-top: 0;">
+                                <input type="number" min="0" placeholder="Gols A" id="admin_gols_a_${jogo.id}" value="${resSalvo.a}" style="width: 70px;">
+                                <span>x</span>
+                                <input type="number" min="0" placeholder="Gols B" id="admin_gols_b_${jogo.id}" value="${resSalvo.b}" style="width: 70px;">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function salvarDadosAdmin() {
+            let listaJogos = obterListaJogosGlobal();
+            let resultadosGlobais = {};
+
+            listaJogos.forEach(jogo => {
+                let inputTimeA = document.getElementById('admin_time_a_' + jogo.id);
+                let inputTimeB = document.getElementById('admin_time_b_' + jogo.id);
+                let ia = document.getElementById('admin_gols_a_' + jogo.id);
+                let ib = document.getElementById('admin_gols_b_' + jogo.id);
+
+                if (inputTimeA && inputTimeB) {
+                    jogo.timeA = inputTimeA.value.trim();
+                    jogo.timeB = inputTimeB.value.trim();
+                }
+
+                if(ia && ib && ia.value !== "" && ib.value !== "") {
+                    resultadosGlobais[jogo.id] = { a: parseInt(ia.value), b: parseInt(ib.value) };
+                }
+            });
+
+            localStorage.setItem('kwc_jogos_personalizados', JSON.stringify(listaJogos));
+            localStorage.setItem('kwc_resultados_globais', JSON.stringify(resultadosGlobais));
+
+            if(bolaoAtivoCodigo) {
+                let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
+                if(bolaoStr) {
+                    let bolao = JSON.parse(bolaoStr);
+                    bolao.resultadosReais = resultadosGlobais;
+                    localStorage.setItem('bolao_meta_' + bolaoAtivoCodigo, JSON.stringify(bolao));
+                }
+            }
+
+            alert('Alterações e resultados salvos com sucesso!');
+            carregarPainelAdminGlobal();
+            carregarBolaoAtivo();
+        }
+
+        function carregarBolaoAtivo() {
+            const statusBox = document.getElementById('status-bolao-atual');
+            const containerJogos = document.getElementById('lista-jogos-container');
+
+            if(!bolaoAtivoCodigo) {
+                statusBox.innerHTML = "Nenhum bolão ativo. Entre com um código ou crie um novo!";
+                containerJogos.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 20px;">Entre em um bolão para visualizar os jogos disponíveis.</p>`;
+                return;
+            }
+
+            let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
+            if(!bolaoStr) {
+                bolaoAtivoCodigo = null;
+                localStorage.removeItem('bolao_ativo_codigo');
+                carregarBolaoAtivo();
+                return;
+            }
+
+            let bolao = JSON.parse(bolaoStr);
+            let qtdParticipantes = Object.keys(bolao.participantes).length;
+
+            statusBox.innerHTML = `Bolão Ativo: <strong style="color: var(--accent);">${bolao.nome}</strong><br><span style="font-size: 13px; color: var(--text-muted);">Código de Convite: <strong style="color: var(--text);">${bolao.codigo}</strong> | Participantes: ${qtdParticipantes}</span>`;
+
+            let resultadosGlobais = JSON.parse(localStorage.getItem('kwc_resultados_globais') || '{}');
+            bolao.resultadosReais = resultadosGlobais;
+            localStorage.setItem('bolao_meta_' + bolaoAtivoCodigo, JSON.stringify(bolao));
+
+            let listaJogos = obterListaJogosGlobal();
+            const agora = new Date();
+
+            containerJogos.innerHTML = '';
+            if(listaJogos.length === 0) {
+                containerJogos.innerHTML = `<p style="color: var(--text-muted); text-align: center;">Nenhum jogo cadastrado no momento.</p>`;
+                return;
+            }
+
+            listaJogos.forEach(jogo => {
+                let dataJogo = new Date(jogo.dataHora);
+                let prazoLimiteJogo = new Date(dataJogo.getTime() - (30 * 60 * 1000));
+                let jogoBloqueado = agora >= prazoLimiteJogo;
+
+                containerJogos.innerHTML += `
+                    <div class="match-box" style="${jogoBloqueado ? 'background: #09090b; opacity: 0.7;' : ''}">
+                        <div class="match-info">
+                            <span class="teams-text">${jogo.timeA} x ${jogo.timeB}</span>
+                            <br><span class="badge">${jogo.fase}</span>
+                            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Início: ${dataJogo.toLocaleString()} ${jogoBloqueado ? '<b style="color: var(--primary);">(Encerrado)</b>' : ''}</div>
+                        </div>
+                        <div class="match-inputs">
+                            <input type="number" min="0" placeholder="-" id="gols_a_${jogo.id}" class="input-palpite" ${jogoBloqueado ? 'disabled' : ''}>
+                            <span>x</span>
+                            <input type="number" min="0" placeholder="-" id="gols_b_${jogo.id}" class="input-palpite" ${jogoBloqueado ? 'disabled' : ''}>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('esp_ini_1').disabled = agora >= new Date("2026-07-26T13:30:00");
+
+            carregarPalpitesSalvosUsuario();
+            calcularEAtualizarRanking(bolao);
+        }
+
+        function salvarPalpitesJogos() {
+            if(!bolaoAtivoCodigo || !usuarioEmail) {
+                alert("Você precisa estar em um bolão e com o perfil cadastrado!");
+                return;
+            }
+
+            let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
+            if(!bolaoStr) return;
+
+            let bolao = JSON.parse(bolaoStr);
+            let listaJogos = obterListaJogosGlobal();
+            const agora = new Date();
+
+            if(!bolao.palpites) bolao.palpites = {};
+            if(!bolao.palpites[usuarioEmail]) bolao.palpites[usuarioEmail] = { nome: usuarioNome, jogos: {}, especiais: {} };
+
+            listaJogos.forEach(jogo => {
+                let dataJogo = new Date(jogo.dataHora);
+                let prazoLimiteJogo = new Date(dataJogo.getTime() - (30 * 60 * 1000));
+                let inputA = document.getElementById('gols_a_' + jogo.id);
+                let inputB = document.getElementById('gols_b_' + jogo.id);
+
+                if (agora < prazoLimiteJogo && inputA && inputB && inputA.value !== "" && inputB.value !== "") {
+                    bolao.palpites[usuarioEmail].jogos[jogo.id] = { a: inputA.value, b: inputB.value };
+                }
+            });
+
+            localStorage.setItem('bolao_meta_' + bolaoAtivoCodigo, JSON.stringify(bolao));
+            alert('Seus palpites foram salvos com sucesso!');
+            carregarBolaoAtivo();
+        }
+
+        function salvarPalpitesEspeciais() {
+            if(!bolaoAtivoCodigo || !usuarioEmail) {
+                alert("Você precisa estar em um bolão!");
+                return;
+            }
+
+            let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
+            if(!bolaoStr) return;
+
+            let bolao = JSON.parse(bolaoStr);
+            const agora = new Date();
+
+            if(!bolao.palpites) bolao.palpites = {};
+            if(!bolao.palpites[usuarioEmail]) bolao.palpites[usuarioEmail] = { nome: usuarioNome, jogos: {}, especiais: {} };
+
+            let especiais = bolao.palpites[usuarioEmail].especiais;
+
+            if(agora < new Date("2026-07-26T13:30:00")) {
+                especiais.ini1 = document.getElementById('esp_ini_1').value;
+                especiais.ini2 = document.getElementById('esp_ini_2').value;
+                especiais.ini3 = document.getElementById('esp_ini_3').value;
+                especiais.ini4 = document.getElementById('esp_ini_4').value;
+            }
+
+            localStorage.setItem('bolao_meta_' + bolaoAtivoCodigo, JSON.stringify(bolao));
+            alert('Palpites especiais salvos com sucesso!');
+        }
+
+        function calcularPontosPartida(palpite, real) {
+            if (!palpite || real === undefined || real.a === undefined || real.b === undefined) return 0;
+            
+            let pa = parseInt(palpite.a);
+            let pb = parseInt(palpite.b);
+            let ra = parseInt(real.a);
+            let rb = parseInt(real.b);
+
+            let acertouCheio = (pa === ra && pb === rb);
+            let vencedorPalpite = pa > pb ? 'A' : (pa < pb ? 'B' : 'Empate');
+            let vencedorReal = ra > rb ? 'A' : (ra < rb ? 'B' : 'Empate');
+            let acertouVencedor = (vencedorPalpite === vencedorReal);
+            
+            let diffPalpite = pa - pb;
+            let diffReal = ra - rb;
+            let acertouDiff = (diffPalpite === diffReal);
+
+            let golsUmTime = (pa === ra || pb === rb);
+
+            if (acertouCheio) return 30;
+            if (acertouVencedor && golsUmTime) return 18;
+            if (acertouVencedor && acertouDiff) return 18;
+            if (acertouVencedor) return 12;
+            if (!acertouVencedor && golsUmTime) return 6;
+
+            return 0;
+        }
+
+        function calcularEAtualizarRanking(bolaoObj) {
+            const tbody = document.getElementById('tabela-ranking-body');
+            tbody.innerHTML = '';
+
+            if(!bolaoObj || !bolaoObj.participantes) return;
+
+            let pontuacoes = [];
+            let emailsParticipantes = Object.keys(bolaoObj.participantes);
+
+            emailsParticipantes.forEach(email => {
+                let dadosParticipante = bolaoObj.participantes[email];
+                let nomeExibicao = dadosParticipante ? dadosParticipante.nome : email;
+                let totalPts = 0;
+
+                let palpitePart = bolaoObj.palpites && bolaoObj.palpites[email] ? bolaoObj.palpites[email] : {};
+                let palpitesJogos = palpitePart.jogos || {};
+                let resultadosReais = bolaoObj.resultadosReais || {};
+
+                for(let idJogo in resultadosReais) {
+                    if(palpitesJogos[idJogo]) {
+                        totalPts += calcularPontosPartida(palpitesJogos[idJogo], resultadosReais[idJogo]);
+                    }
+                }
+
+                pontuacoes.push({ nome: nomeExibicao, pontos: totalPts });
+            });
+
+            pontuacoes.sort((a, b) => b.pontos - a.pontos);
+
+            pontuacoes.forEach((item, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${index + 1}º</strong></td>
+                        <td>${item.nome}</td>
+                        <td style="text-align: right;"><strong style="color: var(--accent);">${item.pontos} pts</strong></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function carregarPalpitesSalvosUsuario() {
+            if(!bolaoAtivoCodigo || !usuarioEmail) return;
+            let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
+            if(!bolaoStr) return;
+
+            let bolao = JSON.parse(bolaoStr);
+            if(!bolao.palpites || !bolao.palpites[usuarioEmail]) return;
+
+            let obj = bolao.palpites[usuarioEmail];
+
+            if(obj.jogos) {
+                for(let id in obj.jogos) {
+                    let ga = document.getElementById('gols_a_' + id);
+                    let gb = document.getElementById('gols_b_' + id);
+                    if(ga && obj.jogos[id]) ga.value = obj.jogos[id].a !== undefined ? obj.jogos[id].a : '';
+                    if(gb && obj.jogos[id]) gb.value = obj.jogos[id].b !== undefined ? obj.jogos[id].b : '';
+                }
+            }
+            if(obj.especiais) {
+                if(document.getElementById('esp_ini_1').value === "") document.getElementById('esp_ini_1').value = obj.especiais.ini1 || '';
+                if(document.getElementById('esp_ini_2').value === "") document.getElementById('esp_ini_2').value = obj.especiais.ini2 || '';
+                if(document.getElementById('esp_ini_3').value === "") document.getElementById('esp_ini_3').value = obj.especiais.ini3 || '';
+                if(document.getElementById('esp_ini_4').value === "") document.getElementById('esp_ini_4').value = obj.especiais.ini4 || '';
+            }
+        }
+
+        function trocarAba(event, abaId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('tab-' + abaId).classList.add('active');
+            
+            if(event && event.currentTarget && !event.currentTarget.style.color.includes('eab308')) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
+
+
