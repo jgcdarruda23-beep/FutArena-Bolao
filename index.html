@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FutArena Bolão - KWC Clubs 2026</title>
+    <title>FutArena Bolão - Gestão de Bolões</title>
     <!-- Importação de tipografia moderna e atrativa -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,17 +17,17 @@
             --text-muted: #a1a1aa;
             --border: #27272a;
             
-            --primary: #dc2626;        /* Vermelho vibrante */
-            --secondary: #9333ea;      /* Roxo */
-            --accent: #eab308;         /* Amarelo */
+            --primary: #2563eb;        /* Azul Padrão */
+            --secondary: #dc2626;      /* Vermelho Padrão */
+            --accent: #eab308;         /* Amarelo Destaque */
             
-            --danger-bg: #1f1315;
-            --danger-border: #7f1d1d;
-            --danger-text: #fca5a5;
+            --danger-bg: #1f1d13;
+            --danger-border: #713f12;
+            --danger-text: #fef08a;
             
-            --success-bg: #161525;
-            --success-border: #581c87;
-            --success-text: #d8b4fe;
+            --success-bg: #111827;
+            --success-border: #1e40af;
+            --success-text: #93c5fd;
         }
 
         *, *::before, *::after {
@@ -44,12 +44,12 @@
         }
 
         header {
-            background: linear-gradient(135deg, #000000, #18181b, #7f1d1d);
+            background: linear-gradient(135deg, #09090b, #1e3a8a, #991b1b);
             color: #ffffff;
             padding: 35px 20px;
             text-align: center;
             border-bottom: 2px solid var(--primary);
-            box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.15);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.15);
         }
 
         header h1 {
@@ -118,7 +118,7 @@
         select:focus, input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
         }
 
         input:disabled, select:disabled {
@@ -162,7 +162,7 @@
         .nav-btn.active {
             background: var(--primary);
             color: #ffffff;
-            box-shadow: 0 2px 10px rgba(220, 38, 38, 0.4);
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.4);
         }
 
         .tab-content {
@@ -204,9 +204,9 @@
 
         .badge {
             display: inline-block;
-            background: rgba(147, 51, 234, 0.15);
-            color: #e879f9;
-            border: 1px solid rgba(147, 51, 234, 0.3);
+            background: rgba(37, 99, 235, 0.15);
+            color: #93c5fd;
+            border: 1px solid rgba(37, 99, 235, 0.3);
             padding: 4px 10px;
             font-size: 12px;
             border-radius: 6px;
@@ -245,13 +245,13 @@
             cursor: pointer;
             width: 100%;
             margin-top: 12px;
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
             transition: background-color 0.2s, transform 0.1s;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         .action-btn:hover {
-            background-color: #b91c1c;
+            background-color: #1d4ed8;
         }
 
         .action-btn:active {
@@ -307,17 +307,32 @@
         .inline-form-box.active {
             display: block;
         }
+
+        .site-notification {
+            background: #1e1b4b;
+            border: 1px solid #3b82f6;
+            color: #93c5fd;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>FutArena Bolão</h1>
-        <p>Mundial de Clubes da Kings League</p>
+        <p>O seu bolão de futebol oficial</p>
     </header>
 
     <div class="container">
         
+        <!-- Notificador Interno do Site -->
+        <div id="site-notificacao" class="site-notification"></div>
+
         <!-- Identificação do Participante -->
         <div class="card user-welcome-box" id="box-identificacao">
             <div>
@@ -345,21 +360,21 @@
         </div>
 
         <!-- Seção de Gestão / Entrada em Bolão -->
-        <div class="card" id="card-gerenciamento-bolao" style="border: 1px solid var(--secondary);">
-            <h3 style="margin-top: 0; color: #e879f9; font-size: 18px; font-weight: 700;">Gestão do Bolão</h3>
+        <div class="card" id="card-gerenciamento-bolao" style="border: 1px solid var(--primary);">
+            <h3 style="margin-top: 0; color: #93c5fd; font-size: 18px; font-weight: 700;">Gestão do Bolão (Multiplayer Sincronizado)</h3>
             <div id="status-bolao-atual" class="bolao-info-box">
                 Nenhum bolão selecionado no momento. Entre com um código ou crie um novo!
             </div>
             
             <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <button class="action-btn" style="flex: 1; margin-top: 0; background: var(--secondary);" onclick="mostrarFormularioBolao('entrar')">Entrar em um Bolão (com Código)</button>
-                <button class="action-btn" style="flex: 1; margin-top: 0; background: var(--primary);" onclick="mostrarFormularioBolao('criar')">Criar Novo Bolão (KWC)</button>
+                <button class="action-btn" style="flex: 1; margin-top: 0; background: var(--primary);" onclick="mostrarFormularioBolao('entrar')">Entrar em um Bolão (com Código)</button>
+                <button class="action-btn" style="flex: 1; margin-top: 0; background: var(--secondary);" onclick="mostrarFormularioBolao('criar')">Criar Novo Bolão</button>
             </div>
         </div>
 
         <!-- Formulário Embutido de Bolão (Criar / Entrar) -->
         <div class="inline-form-box" id="form-bolao-box">
-            <h3 id="titulo-form-bolao" style="margin-top: 0; color: #e879f9; font-size: 16px;">Gerenciar Bolão</h3>
+            <h3 id="titulo-form-bolao" style="margin-top: 0; color: #93c5fd; font-size: 16px;">Gerenciar Bolão</h3>
             <div id="label-campo-bolao" style="font-weight: 600; font-size: 14px; margin-bottom: 8px;">Nome do Bolão:</div>
             <input type="text" id="input-bolao-dado" placeholder="Digite aqui...">
             
@@ -381,7 +396,7 @@
         <!-- Formulário Embutido de Senha do Admin -->
         <div class="inline-form-box" id="form-admin-senha-box" style="border-color: var(--accent);">
             <h3 style="margin-top: 0; color: var(--accent); font-size: 16px;">Área Restrita do Administrador</h3>
-            <p style="font-size: 13px; color: var(--text-muted); margin-top: 0;">Digite a senha oficial para desbloquear o painel de gestão de partidas e resultados.</p>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 0;">Digite a senha oficial para desbloquear o painel de gestão global.</p>
             <label>Senha de Acesso:</label>
             <input type="password" id="input-admin-senha" placeholder="Digite a senha...">
             <div style="display: flex; gap: 10px;">
@@ -394,7 +409,7 @@
         <div id="tab-palpites" class="tab-content active">
             <div class="card">
                 <h2>Palpites dos Jogos Oficiais</h2>
-                <p style="font-size: 14px; color: var(--text-muted); margin-top: 0;">Faça seus palpites antes do início de cada partida.</p>
+                <p style="font-size: 14px; color: var(--text-muted); margin-top: 0;">Jogos passados são ocultados automaticamente para despoluir a tela. Prazo limite: 1 minuto antes do início da rodada.</p>
                 
                 <div id="lista-jogos-container">
                     <p style="color: var(--text-muted); text-align: center; padding: 20px;">Entre em um bolão para visualizar os jogos disponíveis.</p>
@@ -408,15 +423,18 @@
         <div id="tab-especiais" class="tab-content">
             <div class="card">
                 <h2>Palpites Especiais de Longo Prazo</h2>
+                <div id="aviso-especiais-bolao" style="font-size: 14px; color: var(--secondary); font-weight: 600; margin-bottom: 12px;">⚠️ Você precisa entrar em um bolão para enviar e salvar seus palpites especiais.</div>
+                <div id="aviso-especiais-liberacao" style="font-size: 14px; color: var(--secondary); font-weight: 600; margin-bottom: 12px; display: none;">⚠️ O administrador ainda não liberou o envio de palpites especiais para esta fase.</div>
+                <p id="aviso-especiais-bloqueados" style="font-size: 13px; color: var(--secondary); font-weight: 600; margin-bottom: 12px; display: none;">⚠️ O prazo para envio dos palpites especiais foi encerrado.</p>
                 <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
 
-                <label>1. Os 4 Primeiros Colocados (Palpite Inicial)</label>
-                <input type="text" id="esp_ini_1" placeholder="1º Lugar / Campeão">
-                <input type="text" id="esp_ini_2" placeholder="2º Lugar">
-                <input type="text" id="esp_ini_3" placeholder="3º Lugar">
-                <input type="text" id="esp_ini_4" placeholder="4º Lugar">
+                <label>1. Os 4 Primeiros Colocados</label>
+                <input type="text" id="esp_ini_1" class="input-especial" placeholder="1º Lugar" disabled>
+                <input type="text" id="esp_ini_2" class="input-especial" placeholder="2º Lugar" disabled>
+                <input type="text" id="esp_ini_3" class="input-especial" placeholder="3º Lugar" disabled>
+                <input type="text" id="esp_ini_4" class="input-especial" placeholder="4º Lugar" disabled>
 
-                <button class="action-btn" id="btn-salvar-especiais" onclick="salvarPalpitesEspeciais()">Salvar Especiais</button>
+                <button class="action-btn" id="btn-salvar-especiais" onclick="salvarPalpitesEspeciais()" style="display: none;">Salvar Especiais</button>
             </div>
         </div>
 
@@ -439,23 +457,20 @@
             </div>
         </div>
 
-        <!-- ABA 4: REGULAMENTO KWCC -->
+        <!-- ABA 4: REGULAMENTO -->
         <div id="tab-regras" class="tab-content">
             <div class="card">
-                <h2>Regulamento Oficial - Kings World Cup Clubs (KWCC)</h2>
+                <h2>Regulamento Oficial do Bolão</h2>
                 
-                <h3 style="color: var(--accent); font-size: 15px; margin-top: 15px;">1. Formato do Torneio</h3>
-                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">
-                    O mundial de clubes da Kings League reúne os melhores times do mundo em um formato eletrizante dividido em Rodada 1, Chave de Ganhadores, Chave de Perdedores, Last Chance, Quartas de Final, Semifinais e a Grande Final.
-                </p>
-
-                <h3 style="color: var(--accent); font-size: 15px; margin-top: 20px;">2. Prazos e Fechamento de Palpites</h3>
+                <h3 style="color: var(--accent); font-size: 15px; margin-top: 15px;">1. Prazos e Fechamento de Palpites</h3>
                 <ul style="line-height: 1.6; font-size: 14px; padding-left: 20px; color: var(--text-muted);">
-                    <li><strong>Antecedência:</strong> Os palpites para cada partida fecham automaticamente <strong>30 minutos antes</strong> do horário oficial de início.</li>
-                    <li><strong>Responsabilidade:</strong> É dever do participante salvar seus palpites com antecedência para garantir a pontuação.</li>
+                    <li><strong>Antecedência:</strong> Os palpites para cada rodada fecham automaticamente <strong>1 minuto antes</strong> do horário oficial de início da partida inicial da rodada.</li>
+                    <li><strong>Palpites Especiais (Início do Torneio):</strong> Prazo até 1 minuto antes do primeiro jogo do torneio.</li>
+                    <li><strong>Palpites Especiais (Meio do Torneio):</strong> Liberados pelo administrador, fechando 1 minuto antes do primeiro jogo da respectiva fase.</li>
+                    <li><strong>Ocultação Automática:</strong> Jogos já realizados deixam de aparecer na aba de palpites para manter a interface limpa e organizada.</li>
                 </ul>
 
-                <h3 style="color: var(--accent); font-size: 15px; margin-top: 20px;">3. Critérios de Pontuação (Bolão)</h3>
+                <h3 style="color: var(--accent); font-size: 15px; margin-top: 20px;">2. Critérios de Pontuação</h3>
                 <table class="regra-table">
                     <thead>
                         <tr>
@@ -469,10 +484,20 @@
                         <tr><td>Acertou o vencedor e a diferença de gols</td><td style="text-align: right;"><strong style="color: var(--accent);">18 pts</strong></td></tr>
                         <tr><td>Acertou somente o vencedor da partida</td><td style="text-align: right;"><strong style="color: var(--accent);">12 pts</strong></td></tr>
                         <tr><td>Errou o vencedor mas acertou os gols de um dos times</td><td style="text-align: right;"><strong style="color: var(--accent);">6 pts</strong></td></tr>
+                        <tr><td colspan="2" style="background: rgba(255,255,255,0.04); font-weight: bold; color: var(--accent);">Palpites Especiais (Antes do Torneio)</td></tr>
+                        <tr><td>1º Lugar: Lugar certo / Lugar errado</td><td style="text-align: right;"><strong style="color: var(--accent);">108 pts / 84 pts</strong></td></tr>
+                        <tr><td>2º Lugar: Lugar certo / Lugar errado</td><td style="text-align: right;"><strong style="color: var(--accent);">84 pts / 60 pts</strong></td></tr>
+                        <tr><td>3º Lugar: Lugar certo / Lugar errado</td><td style="text-align: right;"><strong style="color: var(--accent);">60 pts / 36 pts</strong></td></tr>
+                        <tr><td>4º Lugar: Lugar certo / Lugar errado</td><td style="text-align: right;"><strong style="color: var(--accent);">36 pts / 12 pts</strong></td></tr>
+                        <tr><td colspan="2" style="background: rgba(255,255,255,0.04); font-weight: bold; color: var(--accent);">Palpites Especiais (No Meio do Torneio)</td></tr>
+                        <tr><td>1º Lugar: Lugar certo / Lugar errado</td><td style="text-align: right;"><strong style="color: var(--accent);">27 pts / 21 pts</strong></td></tr>
+                        <tr><td>2º Lugar: Lugar certo / Lugar errado</td><td style="text-align: right;"><strong style="color: var(--accent);">21 pts / 15 pts</strong></td></tr>
+                        <tr><td>3º Lugar: Lugar certo / Lugar errado</td><td style="text-align: right;"><strong style="color: var(--accent);">15 pts / 9 pts</strong></td></tr>
+                        <tr><td>4º Lugar: Lugar certo / Lugar errado</td><td style="text-align: right;"><strong style="color: var(--accent);">9 pts / 3 pts</strong></td></tr>
                     </tbody>
                 </table>
 
-                <h3 style="color: var(--accent); font-size: 15px; margin-top: 20px;">4. Critérios de Desempate no Ranking</h3>
+                <h3 style="color: var(--accent); font-size: 15px; margin-top: 20px;">3. Critérios de Desempate no Ranking</h3>
                 <ol style="line-height: 1.6; font-size: 14px; padding-left: 20px; color: var(--text-muted);">
                     <li>Maior número de acertos de resultados cheios (30 pontos).</li>
                     <li>Maior número de acertos de vencedores.</li>
@@ -481,23 +506,29 @@
             </div>
         </div>
 
-        <!-- ABA 5: PAINEL ADMINISTRADOR GLOBAL -->
+        <!-- ABA 5: PAINEL ADMINISTRADOR GLOBAL COMPARTILHADO -->
         <div id="tab-admin" class="tab-content">
-            <div class="card" style="border: 2px solid var(--primary);">
-                <h2 style="color: var(--primary); margin-top: 0;">Painel do Administrador Global 🔒</h2>
-                <p style="font-size: 14px; color: var(--text-muted);">Adicione, edite ou remova jogos e insira os placares oficiais manualmente.</p>
+            <div class="card" style="border: 2px solid var(--secondary);">
+                <h2 style="color: var(--secondary); margin-top: 0;">Painel do Administrador Global 🔒</h2>
+                <p style="font-size: 14px; color: var(--text-muted);">Gerencie confrontos, resultados e libere o envio de palpites especiais no meio do torneio.</p>
                 
+                <div style="background: #18181b; border: 1px solid var(--border); padding: 16px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3 style="margin-top:0; color:var(--accent); font-size:15px;">Controle de Palpites Especiais</h3>
+                    <p style="font-size: 13px; color: var(--text-muted);">Permitir que os participantes enviem palpites especiais no meio do torneio (com pontuação reduzida).</p>
+                    <button class="action-btn" id="btn-toggle-liberacao-esp" style="background: var(--primary); margin-top: 8px;" onclick="alternarLiberacaoEspeciaisAdmin()">Liberar Palpites Especiais (Meio do Torneio)</button>
+                </div>
+
                 <button class="action-btn" style="background: var(--secondary); margin-bottom: 20px;" onclick="abrirFormularioAdicionarJogo()">+ Adicionar Novo Jogo ao Torneio</button>
 
                 <!-- Formulário Embutido para Adicionar Jogo -->
                 <div class="inline-form-box" id="form-novo-jogo-box">
                     <h3 style="margin-top:0; color:var(--accent); font-size:15px;">Cadastrar Novo Confronto</h3>
                     <label>Fase / Rodada:</label>
-                    <input type="text" id="novo_jogo_fase" placeholder="Ex: 2. Rodada 2 - Ganhadores">
+                    <input type="text" id="novo_jogo_fase" placeholder="Ex: Rodada 1">
                     <label>Time A (Mandante):</label>
-                    <input type="text" id="novo_jogo_timea" placeholder="Ex: Porcinos FC">
+                    <input type="text" id="novo_jogo_timea" placeholder="Ex: Equipe A">
                     <label>Time B (Visitante):</label>
-                    <input type="text" id="novo_jogo_timeb" placeholder="Ex: Furia FC">
+                    <input type="text" id="novo_jogo_timeb" placeholder="Ex: Equipe B">
                     <label>Data e Hora:</label>
                     <input type="datetime-local" id="novo_jogo_data">
                     <div style="display: flex; gap: 10px;">
@@ -510,25 +541,19 @@
                     <!-- Preenchido via script -->
                 </div>
 
-                <button class="action-btn" style="background-color: var(--primary);" onclick="salvarDadosAdmin()">Salvar Todas as Alterações e Resultados</button>
+                <button class="action-btn" style="background-color: var(--secondary);" onclick="salvarDadosAdmin()">Salvar Todas as Alterações e Resultados Globais</button>
             </div>
         </div>
 
     </div>
 
-    <!-- Script Completo Atualizado -->
+    <!-- Script Consolidado -->
     <script>
         const SENHA_ADMIN = "admin123";
 
         const jogosIniciaisPadrao = [
-            { id: 201, timeA: "Alpak FC", timeB: "No Rules FC", fase: "1. Rodada 1 (26/07)", dataHora: "2026-07-26T14:00" },
-            { id: 202, timeA: "Los Troncos FC", timeB: "DR7", fase: "1. Rodada 1 (26/07)", dataHora: "2026-07-26T15:00" },
-            { id: 203, timeA: "Ultimate Móstoles", timeB: "Aniquiladores FC", fase: "1. Rodada 1 (26/07)", dataHora: "2026-07-26T16:00" },
-            { id: 204, timeA: "Stallions", timeB: "DesinpaiN", fase: "1. Rodada 1 (26/07)", dataHora: "2026-07-26T17:00" },
-            { id: 205, timeA: "La Capital CF", timeB: "Underdogs FC", fase: "1. Rodada 1 (27/07)", dataHora: "2026-07-27T14:00" },
-            { id: 206, timeA: "Atlético Parceros FC", timeB: "FWZ", fase: "1. Rodada 1 (27/07)", dataHora: "2026-07-27T15:00" },
-            { id: 207, timeA: "Karasu", timeB: "G3X FC", fase: "1. Rodada 1 (27/07)", dataHora: "2026-07-27T16:00" },
-            { id: 208, timeA: "Porcinos FC", timeB: "Furia FC", fase: "1. Rodada 1 (27/07)", dataHora: "2026-07-27T17:00" }
+            { id: 201, timeA: "Equipe A", timeB: "Equipe B", fase: "1. Rodada 1", dataHora: "2026-07-26T14:00" },
+            { id: 202, timeA: "Equipe C", timeB: "Equipe D", fase: "1. Rodada 1", dataHora: "2026-07-26T15:00" }
         ];
 
         let usuarioNome = localStorage.getItem('bolao_nome_participante') || null;
@@ -538,17 +563,59 @@
 
         window.onload = function() {
             verificarEstadoUsuario();
-            carregarPainelAdminGlobal();
+            carregarDadosGlobaisSincronizados();
             carregarBolaoAtivo();
         };
 
+        function mostrarNotificacao(mensagem) {
+            const notif = document.getElementById('site-notificacao');
+            notif.innerHTML = mensagem;
+            notif.style.display = 'block';
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 4000);
+        }
+
         function obterListaJogosGlobal() {
-            let salvos = localStorage.getItem('kwc_jogos_personalizados');
-            if (salvos) {
-                return JSON.parse(salvos);
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if (bolaoObj && bolaoObj.jogosPersonalizados) {
+                return bolaoObj.jogosPersonalizados;
             }
-            localStorage.setItem('kwc_jogos_personalizados', JSON.stringify(jogosIniciaisPadrao));
+            let salvosGerais = localStorage.getItem('kwc_jogos_personalizados');
+            if (salvosGerais) {
+                return JSON.parse(salvosGerais);
+            }
             return jogosIniciaisPadrao;
+        }
+
+        function obterResultadosGlobais() {
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if (bolaoObj && bolaoObj.resultadosReais) {
+                return bolaoObj.resultadosReais;
+            }
+            return JSON.parse(localStorage.getItem('kwc_resultados_globais') || '{}');
+        }
+
+        function obterBolaoAtivoObjeto() {
+            if (!bolaoAtivoCodigo) return null;
+            let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
+            if (!bolaoStr) return null;
+            return JSON.parse(bolaoStr);
+        }
+
+        function salvarBolaoAtivoObjeto(bolaoObj) {
+            if (!bolaoAtivoCodigo) return;
+            localStorage.setItem('bolao_meta_' + bolaoAtivoCodigo, JSON.stringify(bolaoObj));
+        }
+
+        function carregarDadosGlobaisSincronizados() {
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if (bolaoObj) {
+                if (!bolaoObj.jogosPersonalizados) {
+                    bolaoObj.jogosPersonalizados = obterListaJogosGlobal();
+                    salvarBolaoAtivoObjeto(bolaoObj);
+                }
+            }
         }
 
         function verificarEstadoUsuario() {
@@ -580,16 +647,16 @@
                 localStorage.setItem('bolao_email_participante', usuarioEmail);
                 verificarEstadoUsuario();
                 alternarFormularioUsuario();
-                alert(`Perfil salvo com sucesso para ${usuarioNome}!`);
+                mostrarNotificacao(`Perfil salvo com sucesso para ${usuarioNome}!`);
                 carregarBolaoAtivo();
             } else {
-                alert("Por favor, preencha um nome válido e um e-mail correto.");
+                mostrarNotificacao("Por favor, preencha um nome válido e um e-mail correto.");
             }
         }
 
         function mostrarFormularioBolao(acao) {
             if(!usuarioEmail) {
-                alert("Cadastre seu perfil primeiro!");
+                mostrarNotificacao("Cadastre seu perfil primeiro!");
                 alternarFormularioUsuario();
                 return;
             }
@@ -604,7 +671,7 @@
             input.value = "";
             if(acao === 'criar') {
                 titulo.innerText = "Criar Novo Bolão";
-                label.innerText = "Nome do Bolão (Ex: FutArena Família):";
+                label.innerText = "Nome do Bolão (Ex: Bolão da Família):";
                 input.placeholder = "Ex: Bolão da firma ou família";
                 btn.innerText = "Criar Bolão";
             } else {
@@ -622,7 +689,7 @@
         function executarAcaoBolao() {
             let valor = document.getElementById('input-bolao-dado').value.trim();
             if(!valor) {
-                alert("O campo não pode ficar vazio.");
+                mostrarNotificacao("O campo não pode ficar vazio.");
                 return;
             }
 
@@ -634,7 +701,10 @@
                     criador: usuarioEmail,
                     participantes: {},
                     palpites: {},
-                    resultadosReais: {}
+                    resultadosReais: {},
+                    jogosPersonalizados: obterListaJogosGlobal(),
+                    especiaisLiberadosAdmin: false,
+                    gabaritoOficialEspeciais: { r1: "", r2: "", r3: "", r4: "" }
                 };
                 dadosBolao.participantes[usuarioEmail] = { nome: usuarioNome, email: usuarioEmail };
 
@@ -643,14 +713,14 @@
                 bolaoAtivoCodigo = codigoUnico;
 
                 esconderFormularioBolao();
-                alert(`Bolão criado com sucesso!\n\nCódigo de acesso: ${codigoUnico}`);
+                mostrarNotificacao(`Bolão criado com sucesso! Código: ${codigoUnico}`);
                 carregarBolaoAtivo();
             } else {
                 let codigoLimpo = valor.toUpperCase();
                 let bolaoSalvoStr = localStorage.getItem('bolao_meta_' + codigoLimpo);
 
                 if(!bolaoSalvoStr) {
-                    alert("Bolão não encontrado com esse código.");
+                    mostrarNotificacao("Bolão não encontrado com esse código neste dispositivo.");
                     return;
                 }
 
@@ -662,7 +732,7 @@
                 bolaoAtivoCodigo = codigoLimpo;
 
                 esconderFormularioBolao();
-                alert(`Entrada no bolão "${dadosBolao.nome}" realizada com sucesso!`);
+                mostrarNotificacao(`Entrada no bolão "${dadosBolao.nome}" realizada com sucesso!`);
                 carregarBolaoAtivo();
             }
         }
@@ -683,9 +753,30 @@
                 fecharPainelSenhaAdmin();
                 carregarPainelAdminGlobal();
                 trocarAba(null, 'admin');
-                alert("Painel Admin Global desbloqueado com sucesso!");
+                mostrarNotificacao("Painel Admin Global desbloqueado com sucesso!");
             } else {
-                alert("Senha incorreta! Acesso negado.");
+                mostrarNotificacao("Senha incorreta! Acesso negado.");
+            }
+        }
+
+        function alternarLiberacaoEspeciaisAdmin() {
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if(!bolaoObj) {
+                mostrarNotificacao("Selecione um bolão ativo primeiro.");
+                return;
+            }
+            bolaoObj.especiaisLiberadosAdmin = !bolaoObj.especiaisLiberadosAdmin;
+            salvarBolaoAtivoObjeto(bolaoObj);
+            atualizarBotaoLiberacaoAdmin(bolaoObj.especiaisLiberadosAdmin);
+            mostrarNotificacao(bolaoObj.especiaisLiberadosAdmin ? "Palpites especiais liberados pelo admin!" : "Palpites especiais bloqueados pelo admin.");
+            carregarBolaoAtivo();
+        }
+
+        function atualizarBotaoLiberacaoAdmin(status) {
+            const btn = document.getElementById('btn-toggle-liberacao-esp');
+            if(btn) {
+                btn.innerText = status ? "Bloquear Palpites Especiais (Atualmente Liberados)" : "Liberar Palpites Especiais (Meio do Torneio)";
+                btn.style.background = status ? "var(--secondary)" : "var(--primary)";
             }
         }
 
@@ -704,7 +795,7 @@
             let dataHora = document.getElementById('novo_jogo_data').value;
 
             if(!fase || !timeA || !timeB || !dataHora) {
-                alert("Preencha todos os campos do novo jogo.");
+                mostrarNotificacao("Preencha todos os campos do novo jogo.");
                 return;
             }
 
@@ -719,28 +810,47 @@
                 dataHora: dataHora
             });
 
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if (bolaoObj) {
+                bolaoObj.jogosPersonalizados = lista;
+                salvarBolaoAtivoObjeto(bolaoObj);
+            }
             localStorage.setItem('kwc_jogos_personalizados', JSON.stringify(lista));
+
             fecharFormularioAdicionarJogo();
             carregarPainelAdminGlobal();
             carregarBolaoAtivo();
-            alert("Jogo adicionado com sucesso!");
+            mostrarNotificacao("Jogo adicionado com sucesso e sincronizado globalmente!");
         }
 
         function removerJogoAdmin(id) {
             if(!confirm("Tem certeza que deseja excluir este jogo?")) return;
             let lista = obterListaJogosGlobal();
             lista = lista.filter(j => j.id !== id);
+
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if (bolaoObj) {
+                bolaoObj.jogosPersonalizados = lista;
+                salvarBolaoAtivoObjeto(bolaoObj);
+            }
             localStorage.setItem('kwc_jogos_personalizados', JSON.stringify(lista));
+
             carregarPainelAdminGlobal();
             carregarBolaoAtivo();
+            mostrarNotificacao("Jogo removido com sucesso.");
         }
 
         function carregarPainelAdminGlobal() {
             const containerAdmin = document.getElementById('lista-admin-container');
             if(!containerAdmin) return;
 
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if(bolaoObj) {
+                atualizarBotaoLiberacaoAdmin(bolaoObj.especiaisLiberadosAdmin);
+            }
+
             let listaJogos = obterListaJogosGlobal();
-            let resultadosGlobais = JSON.parse(localStorage.getItem('kwc_resultados_globais') || '{}');
+            let resultadosGlobais = obterResultadosGlobais();
 
             containerAdmin.innerHTML = '';
             listaJogos.forEach(jogo => {
@@ -749,7 +859,7 @@
                     <div class="match-box" style="flex-direction: column; align-items: stretch;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                             <span class="badge">${jogo.fase} (ID: ${jogo.id})</span>
-                            <button onclick="removerJogoAdmin(${jogo.id})" style="background: var(--primary); color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 12px;">Excluir Jogo</button>
+                            <button onclick="removerJogoAdmin(${jogo.id})" style="background: var(--secondary); color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 12px;">Excluir Jogo</button>
                         </div>
                         <div style="display: flex; gap: 8px; margin-bottom: 8px;">
                             <input type="text" id="admin_time_a_${jogo.id}" value="${jogo.timeA}" style="margin-bottom:0;" placeholder="Time A">
@@ -792,16 +902,14 @@
             localStorage.setItem('kwc_jogos_personalizados', JSON.stringify(listaJogos));
             localStorage.setItem('kwc_resultados_globais', JSON.stringify(resultadosGlobais));
 
-            if(bolaoAtivoCodigo) {
-                let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
-                if(bolaoStr) {
-                    let bolao = JSON.parse(bolaoStr);
-                    bolao.resultadosReais = resultadosGlobais;
-                    localStorage.setItem('bolao_meta_' + bolaoAtivoCodigo, JSON.stringify(bolao));
-                }
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if(bolaoObj) {
+                bolaoObj.jogosPersonalizados = listaJogos;
+                bolaoObj.resultadosReais = resultadosGlobais;
+                salvarBolaoAtivoObjeto(bolaoObj);
             }
 
-            alert('Alterações e resultados salvos com sucesso!');
+            mostrarNotificacao('Alterações e resultados globais salvos com sucesso!');
             carregarPainelAdminGlobal();
             carregarBolaoAtivo();
         }
@@ -813,25 +921,32 @@
             if(!bolaoAtivoCodigo) {
                 statusBox.innerHTML = "Nenhum bolão ativo. Entre com um código ou crie um novo!";
                 containerJogos.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 20px;">Entre em um bolão para visualizar os jogos disponíveis.</p>`;
+                
+                document.getElementById('esp_ini_1').disabled = true;
+                document.getElementById('esp_ini_2').disabled = true;
+                document.getElementById('esp_ini_3').disabled = true;
+                document.getElementById('esp_ini_4').disabled = true;
+                document.getElementById('btn-salvar-especiais').style.display = 'none';
+                document.getElementById('aviso-especiais-bolao').style.display = 'block';
+                document.getElementById('aviso-especiais-liberacao').style.display = 'none';
+                document.getElementById('aviso-especiais-bloqueados').style.display = 'none';
                 return;
             }
 
-            let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
-            if(!bolaoStr) {
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if(!bolaoObj) {
                 bolaoAtivoCodigo = null;
                 localStorage.removeItem('bolao_ativo_codigo');
                 carregarBolaoAtivo();
                 return;
             }
 
-            let bolao = JSON.parse(bolaoStr);
-            let qtdParticipantes = Object.keys(bolao.participantes).length;
+            let qtdParticipantes = Object.keys(bolaoObj.participantes).length;
+            statusBox.innerHTML = `Bolão Ativo: <strong style="color: var(--accent);">${bolaoObj.nome}</strong><br><span style="font-size: 13px; color: var(--text-muted);">Código de Convite: <strong style="color: var(--text);">${bolaoObj.codigo}</strong> | Participantes: ${qtdParticipantes}</span>`;
 
-            statusBox.innerHTML = `Bolão Ativo: <strong style="color: var(--accent);">${bolao.nome}</strong><br><span style="font-size: 13px; color: var(--text-muted);">Código de Convite: <strong style="color: var(--text);">${bolao.codigo}</strong> | Participantes: ${qtdParticipantes}</span>`;
-
-            let resultadosGlobais = JSON.parse(localStorage.getItem('kwc_resultados_globais') || '{}');
-            bolao.resultadosReais = resultadosGlobais;
-            localStorage.setItem('bolao_meta_' + bolaoAtivoCodigo, JSON.stringify(bolao));
+            let resultadosGlobais = obterResultadosGlobais();
+            bolaoObj.resultadosReais = resultadosGlobais;
+            salvarBolaoAtivoObjeto(bolaoObj);
 
             let listaJogos = obterListaJogosGlobal();
             const agora = new Date();
@@ -842,91 +957,156 @@
                 return;
             }
 
+            let primeiroJogoData = null;
+            if (listaJogos.length > 0) {
+                let ordenados = [...listaJogos].sort((a,b) => new Date(a.dataHora) - new Date(b.dataHora));
+                primeiroJogoData = new Date(ordenados[0].dataHora);
+            }
+
+            let jogosExibidos = 0;
+
             listaJogos.forEach(jogo => {
                 let dataJogo = new Date(jogo.dataHora);
-                let prazoLimiteJogo = new Date(dataJogo.getTime() - (30 * 60 * 1000));
-                let jogoBloqueado = agora >= prazoLimiteJogo;
+                let prazoLimiteJogo = new Date(dataJogo.getTime() - (1 * 60 * 1000));
+                let jogoEncerrado = agora >= prazoLimiteJogo;
+
+                if (jogoEncerrado) {
+                    return; 
+                }
+
+                jogosExibidos++;
 
                 containerJogos.innerHTML += `
-                    <div class="match-box" style="${jogoBloqueado ? 'background: #09090b; opacity: 0.7;' : ''}">
+                    <div class="match-box">
                         <div class="match-info">
                             <span class="teams-text">${jogo.timeA} x ${jogo.timeB}</span>
                             <br><span class="badge">${jogo.fase}</span>
-                            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Início: ${dataJogo.toLocaleString()} ${jogoBloqueado ? '<b style="color: var(--primary);">(Encerrado)</b>' : ''}</div>
+                            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Início: ${dataJogo.toLocaleString()}</div>
                         </div>
                         <div class="match-inputs">
-                            <input type="number" min="0" placeholder="-" id="gols_a_${jogo.id}" class="input-palpite" ${jogoBloqueado ? 'disabled' : ''}>
+                            <input type="number" min="0" placeholder="-" id="gols_a_${jogo.id}" class="input-palpite">
                             <span>x</span>
-                            <input type="number" min="0" placeholder="-" id="gols_b_${jogo.id}" class="input-palpite" ${jogoBloqueado ? 'disabled' : ''}>
+                            <input type="number" min="0" placeholder="-" id="gols_b_${jogo.id}" class="input-palpite">
                         </div>
                     </div>
                 `;
             });
 
-            document.getElementById('esp_ini_1').disabled = agora >= new Date("2026-07-26T13:30:00");
+            if (jogosExibidos === 0) {
+                containerJogos.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 20px;">Nenhum jogo disponível para palpites no momento (todos já ocorreram ou foram encerrados).</p>`;
+            }
+
+            document.getElementById('aviso-especiais-bolao').style.display = 'none';
+
+            let antesDoTorneio = primeiroJogoData ? (agora < new Date(primeiroJogoData.getTime() - (1 * 60 * 1000))) : false;
+            let bloqueadoPorPrazoGeral = primeiroJogoData ? (agora >= new Date(primeiroJogoData.getTime() - (1 * 60 * 1000))) : false;
+
+            let podeSalvarEspeciais = false;
+            let msgLiberacaoVisivel = false;
+            let msgBloqueioVisivel = false;
+
+            if (antesDoTorneio) {
+                podeSalvarEspeciais = true;
+            } else {
+                if (bolaoObj.especiaisLiberadosAdmin) {
+                    podeSalvarEspeciais = true;
+                } else {
+                    podeSalvarEspeciais = false;
+                    msgLiberacaoVisivel = true;
+                }
+            }
+
+            if (bloqueadoPorPrazoGeral && !bolaoObj.especiaisLiberadosAdmin && !antesDoTorneio) {
+                msgBloqueioVisivel = true;
+                msgLiberacaoVisivel = false;
+            }
+
+            document.getElementById('esp_ini_1').disabled = !podeSalvarEspeciais;
+            document.getElementById('esp_ini_2').disabled = !podeSalvarEspeciais;
+            document.getElementById('esp_ini_3').disabled = !podeSalvarEspeciais;
+            document.getElementById('esp_ini_4').disabled = !podeSalvarEspeciais;
+            document.getElementById('btn-salvar-especiais').style.display = podeSalvarEspeciais ? 'block' : 'none';
+            document.getElementById('aviso-especiais-liberacao').style.display = msgLiberacaoVisivel ? 'block' : 'none';
+            document.getElementById('aviso-especiais-bloqueados').style.display = msgBloqueioVisivel ? 'block' : 'none';
 
             carregarPalpitesSalvosUsuario();
-            calcularEAtualizarRanking(bolao);
+            calcularEAtualizarRanking(bolaoObj);
         }
 
         function salvarPalpitesJogos() {
             if(!bolaoAtivoCodigo || !usuarioEmail) {
-                alert("Você precisa estar em um bolão e com o perfil cadastrado!");
+                mostrarNotificacao("Você precisa estar em um bolão e com o perfil cadastrado!");
                 return;
             }
 
-            let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
-            if(!bolaoStr) return;
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if(!bolaoObj) return;
 
-            let bolao = JSON.parse(bolaoStr);
             let listaJogos = obterListaJogosGlobal();
             const agora = new Date();
 
-            if(!bolao.palpites) bolao.palpites = {};
-            if(!bolao.palpites[usuarioEmail]) bolao.palpites[usuarioEmail] = { nome: usuarioNome, jogos: {}, especiais: {} };
+            if(!bolaoObj.palpites) bolaoObj.palpites = {};
+            if(!bolaoObj.palpites[usuarioEmail]) bolaoObj.palpites[usuarioEmail] = { nome: usuarioNome, jogos: {}, especiais: {}, tipoEspecial: 'nenhum' };
 
             listaJogos.forEach(jogo => {
                 let dataJogo = new Date(jogo.dataHora);
-                let prazoLimiteJogo = new Date(dataJogo.getTime() - (30 * 60 * 1000));
+                let prazoLimiteJogo = new Date(dataJogo.getTime() - (1 * 60 * 1000));
                 let inputA = document.getElementById('gols_a_' + jogo.id);
                 let inputB = document.getElementById('gols_b_' + jogo.id);
 
                 if (agora < prazoLimiteJogo && inputA && inputB && inputA.value !== "" && inputB.value !== "") {
-                    bolao.palpites[usuarioEmail].jogos[jogo.id] = { a: inputA.value, b: inputB.value };
+                    bolaoObj.palpites[usuarioEmail].jogos[jogo.id] = { a: inputA.value, b: inputB.value };
                 }
             });
 
-            localStorage.setItem('bolao_meta_' + bolaoAtivoCodigo, JSON.stringify(bolao));
-            alert('Seus palpites foram salvos com sucesso!');
+            salvarBolaoAtivoObjeto(bolaoObj);
+            mostrarNotificacao('Seus palpites foram salvos com sucesso!');
             carregarBolaoAtivo();
         }
 
         function salvarPalpitesEspeciais() {
             if(!bolaoAtivoCodigo || !usuarioEmail) {
-                alert("Você precisa estar em um bolão!");
+                mostrarNotificacao("Você precisa entrar em um bolão!");
                 return;
             }
 
-            let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
-            if(!bolaoStr) return;
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if(!bolaoObj) return;
 
-            let bolao = JSON.parse(bolaoStr);
-            const agora = new Date();
-
-            if(!bolao.palpites) bolao.palpites = {};
-            if(!bolao.palpites[usuarioEmail]) bolao.palpites[usuarioEmail] = { nome: usuarioNome, jogos: {}, especiais: {} };
-
-            let especiais = bolao.palpites[usuarioEmail].especiais;
-
-            if(agora < new Date("2026-07-26T13:30:00")) {
-                especiais.ini1 = document.getElementById('esp_ini_1').value;
-                especiais.ini2 = document.getElementById('esp_ini_2').value;
-                especiais.ini3 = document.getElementById('esp_ini_3').value;
-                especiais.ini4 = document.getElementById('esp_ini_4').value;
+            let listaJogos = obterListaJogosGlobal();
+            let primeiroJogoData = null;
+            if (listaJogos.length > 0) {
+                let ordenados = [...listaJogos].sort((a,b) => new Date(a.dataHora) - new Date(b.dataHora));
+                primeiroJogoData = new Date(ordenados[0].dataHora);
             }
 
-            localStorage.setItem('bolao_meta_' + bolaoAtivoCodigo, JSON.stringify(bolao));
-            alert('Palpites especiais salvos com sucesso!');
+            const agora = new Date();
+            let antesDoTorneio = primeiroJogoData ? (agora < new Date(primeiroJogoData.getTime() - (1 * 60 * 1000))) : false;
+
+            let tipoEnvio = "";
+            if (antesDoTorneio) {
+                tipoEnvio = "antes";
+            } else if (bolaoObj.especiaisLiberadosAdmin) {
+                tipoEnvio = "meio";
+            } else {
+                mostrarNotificacao("O prazo para salvar os palpites especiais não está aberto.");
+                return;
+            }
+
+            if(!bolaoObj.palpites) bolaoObj.palpites = {};
+            if(!bolaoObj.palpites[usuarioEmail]) bolaoObj.palpites[usuarioEmail] = { nome: usuarioNome, jogos: {}, especiais: {}, tipoEspecial: 'nenhum' };
+
+            let especiais = bolaoObj.palpites[usuarioEmail].especiais;
+
+            especiais.ini1 = document.getElementById('esp_ini_1').value.trim();
+            especiais.ini2 = document.getElementById('esp_ini_2').value.trim();
+            especiais.ini3 = document.getElementById('esp_ini_3').value.trim();
+            especiais.ini4 = document.getElementById('esp_ini_4').value.trim();
+
+            bolaoObj.palpites[usuarioEmail].tipoEspecial = tipoEnvio;
+
+            salvarBolaoAtivoObjeto(bolaoObj);
+            mostrarNotificacao('Palpites especiais salvos com sucesso!');
         }
 
         function calcularPontosPartida(palpite, real) {
@@ -957,6 +1137,62 @@
             return 0;
         }
 
+        function calcularPontosEspeciais(espObj, gabarito, tipo) {
+            if (!espObj || !gabarito) return 0;
+            let pts = 0;
+
+            let g1 = (gabarito.r1 || "").toLowerCase();
+            let g2 = (gabarito.r2 || "").toLowerCase();
+            let g3 = (gabarito.r3 || "").toLowerCase();
+            let g4 = (gabarito.r4 || "").toLowerCase();
+
+            let p1 = (espObj.ini1 || "").toLowerCase();
+            let p2 = (espObj.ini2 || "").toLowerCase();
+            let p3 = (espObj.ini3 || "").toLowerCase();
+            let p4 = (espObj.ini4 || "").toLowerCase();
+
+            let gabaritoLista = [g1, g2, g3, g4].filter(x => x !== "");
+            let palpitesLista = [
+                { pos: 1, val: p1 },
+                { pos: 2, val: p2 },
+                { pos: 3, val: p3 },
+                { pos: 4, val: p4 }
+            ];
+
+            let tabelaAntes = {
+                1: { certo: 108, errado: 84 },
+                2: { certo: 84, errado: 60 },
+                3: { certo: 60, errado: 36 },
+                4: { certo: 36, errado: 12 }
+            };
+
+            let tabelaMeio = {
+                1: { certo: 27, errado: 21 },
+                2: { certo: 21, errado: 15 },
+                3: { certo: 15, errado: 9 },
+                4: { certo: 9, errado: 3 }
+            };
+
+            let tabela = (tipo === "antes") ? tabelaAntes : tabelaMeio;
+
+            palpitesLista.forEach(item => {
+                if (item.val === "") return;
+                let gabaritoPos = "";
+                if (item.pos === 1) gabaritoPos = g1;
+                if (item.pos === 2) gabaritoPos = g2;
+                if (item.pos === 3) gabaritoPos = g3;
+                if (item.pos === 4) gabaritoPos = g4;
+
+                if (item.val === gabaritoPos) {
+                    pts += tabela[item.pos].certo;
+                } else if (gabaritoLista.includes(item.val)) {
+                    pts += tabela[item.pos].errado;
+                }
+            });
+
+            return pts;
+        }
+
         function calcularEAtualizarRanking(bolaoObj) {
             const tbody = document.getElementById('tabela-ranking-body');
             tbody.innerHTML = '';
@@ -965,6 +1201,7 @@
 
             let pontuacoes = [];
             let emailsParticipantes = Object.keys(bolaoObj.participantes);
+            let gabaritoEsp = bolaoObj.gabaritoOficialEspeciais || { r1: "", r2: "", r3: "", r4: "" };
 
             emailsParticipantes.forEach(email => {
                 let dadosParticipante = bolaoObj.participantes[email];
@@ -979,6 +1216,10 @@
                     if(palpitesJogos[idJogo]) {
                         totalPts += calcularPontosPartida(palpitesJogos[idJogo], resultadosReais[idJogo]);
                     }
+                }
+
+                if (palpitePart.especiais && palpitePart.tipoEspecial && palpitePart.tipoEspecial !== 'nenhum') {
+                    totalPts += calcularPontosEspeciais(palpitePart.especiais, gabaritoEsp, palpitePart.tipoEspecial);
                 }
 
                 pontuacoes.push({ nome: nomeExibicao, pontos: totalPts });
@@ -999,13 +1240,10 @@
 
         function carregarPalpitesSalvosUsuario() {
             if(!bolaoAtivoCodigo || !usuarioEmail) return;
-            let bolaoStr = localStorage.getItem('bolao_meta_' + bolaoAtivoCodigo);
-            if(!bolaoStr) return;
+            let bolaoObj = obterBolaoAtivoObjeto();
+            if(!bolaoObj || !bolaoObj.palpites || !bolaoObj.palpites[usuarioEmail]) return;
 
-            let bolao = JSON.parse(bolaoStr);
-            if(!bolao.palpites || !bolao.palpites[usuarioEmail]) return;
-
-            let obj = bolao.palpites[usuarioEmail];
+            let obj = bolaoObj.palpites[usuarioEmail];
 
             if(obj.jogos) {
                 for(let id in obj.jogos) {
@@ -1036,5 +1274,3 @@
     </script>
 </body>
 </html>
-
-
